@@ -13,6 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/account")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AccountController {
 
     private final AccountService accountService;
@@ -28,7 +29,7 @@ public class AccountController {
     }
 
     @PostMapping("/{userId}/transaction")
-    public ResponseEntity<String> realizeTransaction(@PathVariable("userId") UUID userId, @RequestBody AccountRequest accountRequest){
+    public ResponseEntity<String> realizeTransaction(@PathVariable("userId") String userId, @RequestBody AccountRequest accountRequest){
         return ResponseEntity.ok(accountService.realizeTransaction(userId, accountRequest));
     }
 

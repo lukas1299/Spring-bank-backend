@@ -1,6 +1,5 @@
 package com.example.transactionservice.service;
 
-
 import com.example.accountservice.model.AccountRequest;
 import com.example.transactionservice.config.RabbitMQConfig;
 import com.example.transactionservice.model.AccountDTO;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TransactionListener {
 
-    private final AccountServiceUtil accountServiceUtil;
+//    private final AccountServiceUtil accountServiceUtil;
     private final RabbitTemplate rabbitTemplate;
     private final TransactionService transactionService;
     private final TransactionRepository transactionRepository;
@@ -27,10 +26,10 @@ public class TransactionListener {
 
         Transaction transaction = transactionService.createTransaction(accountRequest);
 
-        accountServiceUtil.updateAccount(accountRequest.getTargetAccountNumber(), accountRequest.getAmount(), "ADD");
-
-        AccountDTO account = accountServiceUtil.getAccount(accountRequest.getFrom());
-        accountServiceUtil.updateAccount(account.getAccountNumber(), accountRequest.getAmount(), "SUBTRACT");
+//        accountServiceUtil.updateAccount(accountRequest.getTargetAccountNumber(), accountRequest.getAmount(), "ADD");
+//
+//        AccountDTO account = accountServiceUtil.getAccount(accountRequest.getFrom());
+//        accountServiceUtil.updateAccount(account.getAccountNumber(), accountRequest.getAmount(), "SUBTRACT");
 
         transactionRepository.save(transaction);
         sentEmail();

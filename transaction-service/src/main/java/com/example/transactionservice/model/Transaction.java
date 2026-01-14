@@ -24,9 +24,18 @@ public class Transaction {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    private UUID fromAccount;
+    private String fromAccount;
     private String toAccount;
     private Date createDate;
     private BigDecimal amount;
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "fromAccount='" + fromAccount + '\'' +
+                ", toAccount='" + toAccount + '\'' +
+                ", createDate=" + createDate +
+                ", amount=" + amount +
+                '}';
+    }
 }

@@ -4,6 +4,7 @@ import com.example.accountservice.model.AccountRequest;
 import com.example.transactionservice.model.AccountDTO;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;

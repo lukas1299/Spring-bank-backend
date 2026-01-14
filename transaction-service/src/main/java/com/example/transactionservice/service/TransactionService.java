@@ -17,10 +17,10 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
 
     public Transaction createTransaction(AccountRequest accountRequest) {
-        return new Transaction(UUID.randomUUID(),
+        return transactionRepository.save(new Transaction(UUID.randomUUID(),
                 accountRequest.getFrom(),
                 accountRequest.getTargetAccountNumber(),
                 new Date(System.currentTimeMillis()),
-                accountRequest.getAmount());
+                accountRequest.getAmount()));
     }
 }

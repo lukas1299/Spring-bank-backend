@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  eureka:
+    image: eureka
+    hostname: eureka
+    ports:
+      - '8761:8761'
+
+  config-server:
+    image: config-server
+    ports:
+      - '8012:8012'

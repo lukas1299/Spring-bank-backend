@@ -11,7 +11,7 @@ spring:
     import: optional:configserver:http://localhost:8012
 
   datasource:
-    url: jdbc:postgresql://localhost:3214/accountDB
+    url: jdbc:postgresql://localhost:3214/accountdb
     username: account
     password: account
   jpa:

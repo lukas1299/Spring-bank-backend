@@ -16,7 +16,7 @@ import java.util.UUID;
 public class AccountRequest implements Serializable {
 
     private final static String serialVersionUID = "241f234123";
-    private UUID from;
+    private String from;
     private String targetAccountNumber;
     private BigDecimal amount;
 

@@ -8,15 +8,15 @@ spring:
           jwk-set-uri: http://localhost:1111/realms/bank/protocol/openid-connect/certs
   rabbitmq:
     host: "localhost"
-    port: 5672
-    username: "user"
-    password: "user"
+    port: 15672
+    username: "guest"
+    password: "guest"
   config:
     import: optional:configserver:http://localhost:8012
   datasource:
-    url: jdbc:postgresql://localhost:4123/transactionDB
-    username: transaction
-    password: transaction
+    url: jdbc:postgresql://localhost:2345/transactiondb
+    username: postgres
+    password: password
   jpa:
     hibernate:
       ddl-auto: update

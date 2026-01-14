@@ -38,7 +38,7 @@ public class AccountService {
         return new AccountDTO(account.getId(),account.getAccountNumber(), account.getBalance());
     }
 
-    public String realizeTransaction(UUID uuid, AccountRequest accountRequest) {
+    public String realizeTransaction(String uuid, AccountRequest accountRequest) {
 
         accountRequest.setFrom(uuid);
         rabbitTemplate.convertAndSend("transaction", accountRequest);

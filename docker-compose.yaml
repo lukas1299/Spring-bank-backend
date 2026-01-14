@@ -9,7 +9,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=user
       - POSTGRES_USER=user
-      - POSTGRES_DB=userDB
+      - POSTGRES_DB=userdb
 
   postgres-account:
     image: postgres:16.3-alpine
@@ -20,7 +20,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=account
       - POSTGRES_USER=account
-      - POSTGRES_DB=accountDB
+      - POSTGRES_DB=accountdb
 
   postgres-transaction:
     image: postgres:16.3-alpine
@@ -31,7 +31,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=transaction
       - POSTGRES_USER=transaction
-      - POSTGRES_DB=transactionDB
+      - POSTGRES_DB=transactiondb
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'

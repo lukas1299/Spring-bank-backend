@@ -19,7 +19,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<String> createTransaction(@RequestBody AccountRequest accountRequest){
-        //String mess = transactionService.createTransaction(accountRequest);
-        return ResponseEntity.ok(null);
+        String mess = transactionService.createTransaction(accountRequest).toString();
+        return ResponseEntity.ok(mess);
     }
 }
