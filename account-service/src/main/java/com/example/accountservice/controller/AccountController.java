@@ -13,16 +13,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/account")
 @RequiredArgsConstructor
-@CrossOrigin
 public class AccountController {
 
     private final AccountService accountService;
 
-    @GetMapping("/{userId}")
-    public AccountDTO getAccount(@PathVariable("userId") UUID userId){
-        return accountService.getUserAccount(userId);
+    @GetMapping("/info")
+    public AccountDTO getAccountInfo(@RequestHeader("Authorization") String token){
+        return accountService.getUserAccount(token);
     }
-
     @PostMapping("/{userId}/create")
     public AccountDTO createAccount(@PathVariable("userId") UUID userId){
         return accountService.createAccount(userId);

@@ -4,6 +4,7 @@ import com.example.accountservice.model.Account;
 import com.example.accountservice.model.AccountDTO;
 import com.example.accountservice.model.AccountRequest;
 import com.example.accountservice.repository.AccountRepository;
+import com.example.accountservice.util.AuthServiceUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final RabbitTemplate rabbitTemplate;
+    private final AuthServiceUtil authServiceUtil;
 
     public AccountDTO createAccount(UUID userId) {
 
@@ -28,9 +30,8 @@ public class AccountService {
         return convertAccountToDto(account);
     }
 
-    public AccountDTO getUserAccount(UUID userId) {
-
-        Account account = accountRepository.findByUserId(userId).orElseThrow(EntityNotFoundException::new);
+    public AccountDTO getUserAccount(String token) {
+        Account account = accountRepository.findByUserId(authServiceUtil.getUserId(token)).orElseThrow(EntityNotFoundException::new);
         return convertAccountToDto(account);
     }
 
