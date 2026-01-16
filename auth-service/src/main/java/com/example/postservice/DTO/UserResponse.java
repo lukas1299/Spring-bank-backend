@@ -1,6 +1,5 @@
 package com.example.postservice.DTO;
 
-import com.example.postservice.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

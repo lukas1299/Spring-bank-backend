@@ -52,7 +52,7 @@ public class AuthenticationFilter implements GatewayFilter {
     }
 
     private String getAuthHeader(ServerHttpRequest request) {
-        return request.getHeaders().getOrEmpty("Authorization").get(0).substring(7);
+        return request.getHeaders().getOrEmpty("Authorization").get(0);
     }
 
     private boolean isAuthMissing(ServerHttpRequest request) {
