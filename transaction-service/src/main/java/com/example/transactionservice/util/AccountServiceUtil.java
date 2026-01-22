@@ -16,11 +16,11 @@ public interface AccountServiceUtil {
     @PostMapping("/account/{userId}/transaction")
     AccountDTO createAccount(@PathVariable("userId") UUID userId, @RequestBody AccountRequest accountRequest);
 
-    @PatchMapping("/account")
+    @PutMapping("/account")
     AccountDTO updateAccount(@RequestParam String targetAccountNumber, @RequestParam BigDecimal amount, @RequestParam String operation);
 
-    @GetMapping("/{userId}")
-    AccountDTO getAccount(@PathVariable("userId") UUID userId);
+    @GetMapping("/account/{accountNumber}/info")
+    AccountDTO getAccountByAccountNumber(@PathVariable("accountNumber") String accountNumber);
 }
 
 

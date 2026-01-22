@@ -12,11 +12,13 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionListener {
 
-//    private final AccountServiceUtil accountServiceUtil;
+    private final AccountServiceUtil accountServiceUtil;
     private final RabbitTemplate rabbitTemplate;
     private final TransactionService transactionService;
     private final TransactionRepository transactionRepository;
@@ -26,10 +28,10 @@ public class TransactionListener {
 
         Transaction transaction = transactionService.createTransaction(accountRequest);
 
-//        accountServiceUtil.updateAccount(accountRequest.getTargetAccountNumber(), accountRequest.getAmount(), "ADD");
-//
-//        AccountDTO account = accountServiceUtil.getAccount(accountRequest.getFrom());
-//        accountServiceUtil.updateAccount(account.getAccountNumber(), accountRequest.getAmount(), "SUBTRACT");
+        //accountServiceUtil.updateAccount(accountRequest.getTargetAccountNumber(), accountRequest.getAmount(), "ADD");
+
+        //AccountDTO account = accountServiceUtil.getAccount(UUID.fromString(accountRequest.getFrom()));
+        //accountServiceUtil.updateAccount(account.getAccountNumber(), accountRequest.getAmount(), "SUBTRACT");
 
         transactionRepository.save(transaction);
         sentEmail();

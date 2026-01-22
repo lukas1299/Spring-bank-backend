@@ -14,9 +14,9 @@ spring:
   config:
     import: optional:configserver:http://localhost:8012
   datasource:
-    url: jdbc:postgresql://localhost:2345/transactiondb
-    username: postgres
-    password: password
+    url: jdbc:postgresql://localhost:4123/transactiondb
+    username: transaction
+    password: transaction
   jpa:
     hibernate:
       ddl-auto: update
