@@ -21,18 +21,17 @@ public class AccountController {
     public AccountDTO getAccountInfo(@RequestHeader("Authorization") String token){
         return accountService.getUserAccount(token);
     }
+    @GetMapping("/{accountNumber}/info")
+    public AccountDTO getAccountInfoByAccountNumber(@PathVariable(name = "accountNumber") String accountNumber){
+        return accountService.getUserAccountByAccountNumber(accountNumber);
+    }
     @PostMapping("/{userId}/create")
     public AccountDTO createAccount(@PathVariable("userId") UUID userId){
         return accountService.createAccount(userId);
     }
 
-    @PostMapping("/{userId}/transaction")
-    public ResponseEntity<String> realizeTransaction(@PathVariable("userId") String userId, @RequestBody AccountRequest accountRequest){
-        return ResponseEntity.ok(accountService.realizeTransaction(userId, accountRequest));
-    }
-
-    @PatchMapping
-    public AccountDTO updateAccount(@RequestParam String targetAccountNumber, @RequestParam BigDecimal amount, @RequestParam String operation){
+    @PutMapping
+    public AccountDTO updateAccount(@RequestParam String targetAccountNumber, @RequestParam BigDecimal amount, @RequestParam String operation) throws Exception {
         return accountService.updateAccount(targetAccountNumber, amount, operation);
     }
 }
