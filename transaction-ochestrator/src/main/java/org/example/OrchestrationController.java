@@ -1,24 +1,21 @@
-package com.example.transactionservice.controller;
+package org.example;
 
-
-import com.example.transactionservice.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.example.common.model.TransactionRequest;
-import org.springframework.http.ResponseEntity;
+import org.example.service.TransactionService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/transaction")
 @RequiredArgsConstructor
-public class TransactionController {
-
+@RequestMapping("/transaction")
+public class OrchestrationController {
     private final TransactionService transactionService;
 
-    @PostMapping
-    public void createTransaction(@RequestBody TransactionRequest transactionRequest){
-        transactionService.createTransaction(transactionRequest);
+    @PostMapping("/initialize")
+    public void initializeTransaction(@RequestBody TransactionRequest transactionRequest){
+        transactionService.startTransactionSaga(transactionRequest);
     }
 }

@@ -27,6 +27,7 @@ public class GatewayConfig {
                 .route("get-service", r -> r.path("/test")
                         .filters(f -> f.filter(filter))
                         .uri("lb://get-service"))
+
                 .build();
     }
 
