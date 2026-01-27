@@ -2,13 +2,14 @@ package com.example.accountservice.service;
 
 import com.example.accountservice.model.Account;
 import com.example.accountservice.model.AccountDTO;
-import com.example.accountservice.model.AccountRequest;
 import com.example.accountservice.model.UserDTO;
 import com.example.accountservice.repository.AccountRepository;
 import com.example.accountservice.util.AuthServiceUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.example.common.model.TransactionRequest;
+import org.example.common.model.TransactionStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,11 +19,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
-    private final RabbitTemplate rabbitTemplate;
     private final AuthServiceUtil authServiceUtil;
+    private final KafkaTemplate<String, TransactionRequest> kafkaTemplate;
 
     public AccountDTO createAccount(UUID userId) {
-
         Account account = accountRepository.save(
                 new Account(UUID.randomUUID(),
                         UUID.randomUUID().toString(),
@@ -42,6 +42,32 @@ public class AccountService {
         return new AccountDTO(account.getId(), account.getAccountNumber(), null, null, null, account.getBalance());
     }
 
+    public void realizeSubtractTransaction(TransactionRequest transactionRequest) throws ClassNotFoundException {
+
+        Account account = accountRepository.findByAccountNumber(transactionRequest.getFrom()).orElseThrow(ClassNotFoundException::new);
+        BigDecimal balance = account.getBalance();
+
+        if (balance.compareTo(transactionRequest.getAmount()) > 0){
+            account.setBalance(balance.subtract(transactionRequest.getAmount()));
+            accountRepository.save(account);
+            transactionRequest.setTransactionStatus(TransactionStatus.REALIZED);
+            kafkaTemplate.send("transaction-subtract-events", transactionRequest);
+        } else {
+            transactionRequest.setTransactionStatus(TransactionStatus.CANCELED);
+            kafkaTemplate.send("transaction-subtract-events", transactionRequest);
+        }
+    }
+
+    public void realizeAddTransaction(TransactionRequest transactionRequest) throws ClassNotFoundException {
+        Account account = accountRepository.findByAccountNumber(transactionRequest.getTargetAccountNumber()).orElseThrow(ClassNotFoundException::new);
+        BigDecimal balance = account.getBalance();
+        account.setBalance(balance.add(transactionRequest.getAmount()));
+        accountRepository.save(account);
+        transactionRequest.setTransactionStatus(TransactionStatus.REALIZED);
+        kafkaTemplate.send("transaction-add-events", transactionRequest);
+
+    }
+
     private AccountDTO convertAccountToDto(Account account){
         return new AccountDTO(account.getId(),account.getAccountNumber(), null, null, null, account.getBalance());
 
@@ -49,34 +75,4 @@ public class AccountService {
     private AccountDTO convertUserDataToDto(Account account, UserDTO userDTO) {
         return new AccountDTO(account.getId(),account.getAccountNumber(), userDTO.getUsername(), userDTO.getSurname(), userDTO.getRoles(),account.getBalance());
     }
-
-    public String realizeTransaction(String uuid, AccountRequest accountRequest) {
-
-        accountRequest.setFrom(uuid);
-        rabbitTemplate.convertAndSend("transaction", accountRequest);
-
-        return accountRequest.toString();
-    }
-
-    public AccountDTO updateAccount(String targetAccountNumber, BigDecimal amount, String operation) throws Exception {
-
-        Account account = accountRepository.findByAccountNumber(targetAccountNumber).orElseThrow(EntityNotFoundException::new);
-        return updateBalance(account, amount, operation);
-    }
-
-    private AccountDTO updateBalance(Account account, BigDecimal amount, String operation) throws Exception {
-        BigDecimal accountBalance = account.getBalance();
-
-        if(operation.equals("ADD")) {
-            account.setBalance(accountBalance.add(amount));
-        } else {
-            account.setBalance(accountBalance.subtract(amount));
-        }
-
-        accountRepository.save(account);
-
-        return new AccountDTO(account.getId(),account.getAccountNumber(),null, null,null,  account.getBalance());
-    }
-
-
 }

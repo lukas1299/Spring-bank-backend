@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.example.common.model.TransactionStatus;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -28,14 +29,6 @@ public class Transaction {
     private String toAccount;
     private Date createDate;
     private BigDecimal amount;
+    private TransactionStatus status;
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "fromAccount='" + fromAccount + '\'' +
-                ", toAccount='" + toAccount + '\'' +
-                ", createDate=" + createDate +
-                ", amount=" + amount +
-                '}';
-    }
 }
