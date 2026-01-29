@@ -1,7 +1,6 @@
 package com.example.transactionservice.util;
 
-import com.example.transactionservice.model.AccountDTO;
-
+import org.example.common.model.AccountDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

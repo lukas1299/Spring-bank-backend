@@ -1,6 +1,6 @@
 package com.example.postservice.DTO;
 
-import com.example.accountservice.model.AccountDTO;
+import org.example.common.model.AccountDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
