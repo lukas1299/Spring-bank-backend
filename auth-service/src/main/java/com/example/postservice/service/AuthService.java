@@ -1,6 +1,6 @@
 package com.example.postservice.service;
 
-import com.example.accountservice.model.AccountDTO;
+import org.example.common.model.AccountDTO;
 import com.example.postservice.DTO.LoginResponse;
 import com.example.postservice.DTO.TokenRequest;
 import com.example.postservice.DTO.UserRegisterRequest;
@@ -12,7 +12,6 @@ import com.example.postservice.repository.RoleRepository;
 import com.example.postservice.repository.UserRepository;
 import com.example.postservice.security.JwtTokenUtil;
 import com.example.postservice.util.AccountServiceUtil;
-import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;

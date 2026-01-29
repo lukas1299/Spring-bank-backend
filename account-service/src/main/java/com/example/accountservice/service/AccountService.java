@@ -1,7 +1,7 @@
 package com.example.accountservice.service;
 
 import com.example.accountservice.model.Account;
-import com.example.accountservice.model.AccountDTO;
+import org.example.common.model.AccountDTO;
 import com.example.accountservice.model.UserDTO;
 import com.example.accountservice.repository.AccountRepository;
 import com.example.accountservice.util.AuthServiceUtil;

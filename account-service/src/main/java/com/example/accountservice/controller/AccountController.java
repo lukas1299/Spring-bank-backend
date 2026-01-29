@@ -1,11 +1,10 @@
 package com.example.accountservice.controller;
 
-import com.example.accountservice.model.AccountDTO;
+import org.example.common.model.AccountDTO;
 import com.example.accountservice.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @RestController
