@@ -18,7 +18,7 @@ public class GatewayConfig {
                 .route("auth-service", r -> r.path("/auth/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://auth-service"))
-                .route("account-service", r -> r.path("/account/**")
+                .route("account-service", r -> r.path("/account/**", "/creditCard/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://account-service"))
                 .route("transaction-service", r -> r.path("/transaction/**")

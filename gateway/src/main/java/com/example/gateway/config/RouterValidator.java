@@ -24,6 +24,7 @@ public class RouterValidator {
 
     public static final Map<String, List<String>> apiEndpoints = Map.of(
             "/account", List.of("ROLE_ADMIN", "ROLE_USER"),
+            "/creditCard" , List.of("ROLE_USER"),
             "/admin", List.of("ROLE_ADMIN"),
             "/transaction", List.of("ROLE_USER"),
             "/test", List.of("ROLE_USER")
