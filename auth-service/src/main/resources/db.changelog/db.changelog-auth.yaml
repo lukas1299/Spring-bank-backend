@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/createSTH.sql
+#  - include:
+#      file: db/changelog/version/createCreditCard.sql
